@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+
+#homeScreen{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.playSection{
+    width: 30%;
+    height: 100%;
+    background-color: #0A0A0A;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
+}
+
+.howSection{
+    width: 70%;
+    height: 100%;
+    background-color: #272727;
+}
+
+/*playSection styling*/
+
+.containerPlay{
+    width: 90%;
+    height: 100%;
+    padding: 10% 0% 10% 10%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.top{
+    width: 100%;
+    height: 30%;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap; 
+    justify-content: space-between;
+}
+
+.bottom{
+    width: 100%;
+    height: 10%;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap; 
+    justify-content: space-between;
+}
+
+/*top container*/
+.containerPlay h1{
+    color: #E4E4E4;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.containerPlay span{
+    color: #aaa7a7;
+    font-size: 1.5em;
+}
+
+.containerPlay input[type="text"]{
+    font-family: 'Roboto', sans-serif;
+    margin-top: 1%;
+    color: #3f3f3f;
+    font-size: 1.2em;
+    padding:0.2em;
+    width: 80%;
+}
+
+/*bottom container*/
+.bottom .block{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.standardButton{
+    background-color: #0A0A0A;
+    color: #E4E4E4;
+    border:solid 3px #E4E4E4;
+    min-width:45%;
+    height:60%;
+    padding:.2em;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#playButton{
+    background-color: #41D5A3;
+    color: #0A0A0A;
+    border:solid 3px #41D5A3;
+    min-width:45%;
+    height:60%;
+    padding:.2em;
+    text-align: center;
+    line-height: normal;
+    font-size: 1.5em;
+    margin-right: 2%;
+}
+
+
+
+/*style za inGameScreen*/
+
+#inGameScreen{
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.game{
+    width:80%;
+    height: 100%;
+    background-color: #0A0A0A;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.score{
+    width:20%;
+    height: 100%;
+    background-color: #272727;
+}

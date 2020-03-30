@@ -3,11 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bricks</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body onload="drawIt()">
-    <canvas id="myCanvas" width="700" height="700" ></canvas>
+<body>
+    <!--HOME SCREEN-->
+    <div id="homeScreen">
+        <div class="playSection">
+            <div class="containerPlay">
+                <div class="top">
+                    <div class="block">
+                        <h1>Play</h1>
+                    </div>
+                    <div class="block">
+
+                            <span>Username</span><br />
+                            <input id="inpUsername" type="text" placeholder="Insert your Username"/>
+
+                    </div>
+                </div>
+                <div class="bottom">
+                    <div class="block">
+                        <button id="playButton" onclick="switchScreen()">Play</button>
+                        <button class="standardButton">Leaderboards</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="howSection">
+            finish when you complete with whole project
+        </div>
+    </div>
+
+    <!--IN_GAME SCREEN-->
+
+    <div id="inGameScreen">
+        <div class="game">
+            <canvas id="myCanvas" width="700" height="700" ></canvas>
+        </div>
+
+        <div class="score">
+            <div id="best">
+                <span>"Username"</span>
+                <span>Best:"score"</span>
+            </div>
+            <div>
+                current score
+                ?time you played?
+                play again
+                exit
+                Leaderboards
+                sound on/off
+            </div>
+        </div>
+    </div>
+    
+
     <script src="js/script.js"></script>
     <script src="js/jQuery.js"></script>
+    <script>
+        const inpUsername = document.getElementById("inpUsername");
+        const btnInsert = document.getElementById("playButton");
+        let score = 0;
+        function switchScreen(){
+            document.getElementById("homeScreen").style.display = "none";
+            document.getElementById("inGameScreen").style.display = "flex";
+            drawIt();
+            const username = inpUsername.value;
+            console.log(username);
+
+            if(username){
+                localStorage.setItem(username, score);
+                location.reload();
+            }
+
+            for(let i=0;i<localStorage.length;i++){
+            const username = localStorage.key(i);
+            const score = localStorage.getItem(username);
+            }
+
+        }
+    </script>
 </body>
 </html>
