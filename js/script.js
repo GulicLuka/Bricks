@@ -142,8 +142,10 @@ function drawIt() {
         if (y + dy < 0+r)
           dy = -dy;
         else if (y + dy > HEIGHT-r) {
-          if (x > paddlex && x < paddlex + paddlew)
+          if (x > paddlex && x < paddlex + paddlew){
+            dx = 8 * ((x-(paddlex+paddlew/2))/paddlew);
             dy = -dy;
+          }
           else
             clearInterval(intervalId);
         }
@@ -157,6 +159,15 @@ function drawIt() {
               }
             }
           }
+
+        rowheight = BRICKHEIGHT + PADDING + r/2; //Smo zadeli opeko?
+        colwidth = BRICKWIDTH + PADDING + r/2;
+        row = Math.floor(y/rowheight);
+        col = Math.floor(x/colwidth);
+        //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
+        if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
+          dy = -dy; bricks[row][col] = 0;
+        }
         
           if (x + dx > WIDTH -r || x + dx < 0+r)
             dx = -dx;
