@@ -174,7 +174,21 @@ function drawIt() {
         //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
         if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
           dy = -dy; bricks[row][col] = 0;
+          if(row == 4){
           tocke += 1; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
+          }
+          else if(row == 3){
+          tocke += 2;
+          }
+          else if(row == 2){
+          tocke += 3;
+          }
+          else if(row == 1){
+          tocke += 4;
+          }
+          else{
+          tocke += 5;
+          }
           $("#tocke").html(tocke);
         }
         
