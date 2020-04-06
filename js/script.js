@@ -26,6 +26,8 @@ function drawIt() {
     var BRICKHEIGHT;
     var PADDING;
 
+    var tocke; 
+
     function initbricks() { //inicializacija opek - polnjenje v tabelo
         NROWS = 5;
         NCOLS = 5;
@@ -48,7 +50,7 @@ function drawIt() {
     }
      
       function onMouseMove(evt) {
-        if (evt.pageX > canvasMinX && evt.pageX < canvasMaxX) {
+        if (evt.pageX > canvasMinX && evt.pageX+paddlew < canvasMaxX) {
           paddlex = evt.pageX - canvasMinX;
         }
       }
@@ -77,16 +79,19 @@ function drawIt() {
       }
 
     function init() {
-        ctx = $('#myCanvas')[0].getContext("2d");
-        WIDTH = $("#myCanvas").width();
-        HEIGHT = $("#myCanvas").height();
-        return setInterval(draw, 10);
+      tocke = 0;
+      ctx = $('#myCanvas')[0].getContext("2d");
+      WIDTH = $("#myCanvas").width();
+      HEIGHT = $("#myCanvas").height();
+      $("#tocke").html(tocke);
+      return setInterval(draw, 10);
       }
       
       function circle(x,y,r) {
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI*2, true);
         ctx.closePath();
+        ctx.fillStyle = "white";
         ctx.fill();
       }
       
@@ -94,6 +99,7 @@ function drawIt() {
         ctx.beginPath();
         ctx.rect(x,y,w,h);
         ctx.closePath();
+        ctx.fillStyle = "#41D5A3";
         ctx.fill();
       }
       
@@ -105,6 +111,7 @@ function drawIt() {
     function draw() {
         clear();
         circle(x, y, 10);
+        
 
         if (x + dx > WIDTH -r|| x + dx < 0 +r)
 
@@ -127,7 +134,7 @@ function drawIt() {
         }
 
         else if (leftDown){
-            if(paddlex>0 || paddlex < WIDTH){
+            if(paddlex>0){
                 paddlex -=5;
                 }else{
                 paddlex=0;
@@ -167,6 +174,8 @@ function drawIt() {
         //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
         if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
           dy = -dy; bricks[row][col] = 0;
+          tocke += 1; //v primeru, da imajo opeko večjo utež lahko prištevate tudi npr. 2 ali 3; pred tem bi bilo smiselno dodati še kakšen pogoj, ki bi signaliziral mesta opek, ki imajo višjo vrednost
+          $("#tocke").html(tocke);
         }
         
           if (x + dx > WIDTH -r || x + dx < 0+r)
