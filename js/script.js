@@ -1,5 +1,5 @@
 var pavza = false;
-
+var tocke;
 
 function drawIt() {
   //Canvas-------------------------------------------------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ function drawIt() {
 
   var numBall = 1;
   var samoEnkrat = true;
-
+  
   //Mouse--------------------------------------------------------------------------------------------------------------------------
   var canvasMinX;
   var canvasMaxX;
@@ -27,19 +27,18 @@ function drawIt() {
   var BRICKHEIGHT;
   var PADDING;
   var subArr;
-  var popTable = false;
+
  
   //Pavza--------------------------------------------------------------------------------------------------------------------------
   //var pavza = false;
 
   var interval;
-  var tocke;
+
 
   var first = true;
 
   //click--------------------------------------------------------------------------------------------------------------------------
   var click = true;
-  var clicked = false;
   var once = true;
 
   //draw line between mouse and ball-----------------------------------------------------------------------------------------------
@@ -205,6 +204,9 @@ canvasElem.addEventListener("mousemove", function(e)
     ctx.fillStyle = "white";
     ctx.fill();
   }
+
+
+
   // Draw rect-----------------------------
   function rect1(x, y, w, h, c,st) {
     ctx2.beginPath();
@@ -217,15 +219,6 @@ canvasElem.addEventListener("mousemove", function(e)
     
     ctx2.stroke();
   }
-  /*function rect2(x, y, w, h) {
-    ctx.beginPath();
-    ctx.rect(x, y, w, h);
-    ctx.closePath();
-    ctx.fillStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * i) + ', 255 )';
-    ctx.textAlign = "center";
-
-    ctx.fill();
-  }*/
 
   //Stevilke v rect--------------------------
 
@@ -290,18 +283,37 @@ canvasElem.addEventListener("mousemove", function(e)
       //konec igre---------------------------------------------
       if(bricks.length * BRICKHEIGHT > HEIGHT - BRICKHEIGHT){
         clearInterval(interval);
+        if(parseInt(localStorage.getItem(vpis)) < tocke){
+          localStorage.setItem(vpis,tocke);
+        }
         location.reload();
       }
 
+      tocke = NROWS;
       $("#tocke").html(NROWS);
       clear();
-      circle(x, y, r);
+      circle(x,y, r);
 
       if(click){
         clear();
         line(x,y,mouseX,mouseY);
         circle(x, y, r);
       }
+
+      /*if(click){
+        clear();
+        line(x,y,mouseX,mouseY);
+        if(samoEnkrat){
+          console.log(numBall);
+          for(i = 0;i<numBall;i++){
+            tabBall[i] = new ball(x,y);
+            clear();
+            circle(tabBall[i].x, tabBall[i].y, r);
+            setTimeout(1000);
+          }
+          samoEnkrat = false;
+        }
+      }*/
 
       if(first){
         initbricks();
@@ -363,36 +375,28 @@ canvasElem.addEventListener("mousemove", function(e)
       row = Math.floor(y / rowheight);
       col = Math.floor(x / colwidth);
       //Če smo zadeli opeko, vrni povratno kroglo in označi v tabeli, da opeke ni več
-      if (y < bricks.length * rowheight && row >= 0 && col >= 0 && bricks[row][col] >= 1 && x ) {
+      /*if (y < bricks.length * rowheight && row >= 0 && col >= 0 && bricks[row][col] >= 1 && x ) {
         hitrostY = -hitrostY;
         bricks[row][col]--;
         tocke = NROWS;
       }
+      */
 
-      /*for(i = 0; i<bricks.length;i++){
-        for(j = 0; j<NCOLS;j++){
-          if(x > (j*BRICKWIDTH) && x < (BRICKWIDTH*j) && y < (i*BRICKHEIGHT) && y > (i*BRICKHEIGHT) && bricks[i][j]>=1){
-            hitrostY = -hitrostY;
-            bricks[row][col]--;
-            tocke = NROWS;
+      for(i = 0;i<bricks.length;i++){
+        for(j = 0;j<bricks[i].length;j++){
+          if(x + r >= j * BRICKWIDTH + PADDING + r / 2 && x - r <= j * BRICKWIDTH + BRICKWIDTH + PADDING + r / 2 && bricks[i][j] >= 1 && y + r >= i * BRICKHEIGHT + PADDING + r / 2 && y - r <= i * BRICKHEIGHT + BRICKHEIGHT + PADDING + r / 2){
+            if(x > j * BRICKWIDTH  + PADDING + r / 2  && y > i * BRICKHEIGHT + PADDING + r / 2  && y < i * BRICKHEIGHT + BRICKHEIGHT + PADDING + r / 2  || x < j * BRICKWIDTH + BRICKWIDTH + PADDING + r / 2  && y> i * BRICKHEIGHT + PADDING + r / 2  && y < i * BRICKHEIGHT + BRICKHEIGHT  + PADDING + r / 2 ){
+              hitrostX = -hitrostX;
+              bricks[i][j]--;
+            }
+            else if(y > i * BRICKHEIGHT  + PADDING + r / 2  && x > j * BRICKWIDTH  + PADDING + r / 2  && x < j * BRICKWIDTH +BRICKWIDTH  + PADDING + r / 2  || y < i * BRICKHEIGHT + BRICKHEIGHT  + PADDING + r / 2 && x > j * BRICKWIDTH  + PADDING + r / 2  && x < j * BRICKWIDTH + BRICKWIDTH + PADDING + r / 2 ){
+              hitrostY = -hitrostY;
+              bricks[i][j]--;
+            }
+            
           }
         }
-      }*/
-
-      /*for(var i = 0; i<bricks.length;i++){
-        for(var j = 0; j<NCOLS;j++){
-          if(bricks[i][j]==1){
-            popTable = false;
-            break;
-          }
-          else{
-            popTable = true;
-          }
-        }
-        if(popTable){
-          bricks.pop();
-        }
-      }*/
+      }
 
 
 
@@ -408,12 +412,6 @@ canvasElem.addEventListener("mousemove", function(e)
         hitrostX = 0;
         hitrostY = 0;
         y = HEIGHT-r;
-        
-        //$(document).click(shoot);
-        //shoot();
-        //clearInterval(interval);
-        //hitrostY = -hitrostY;
-        //initbricks();
       }
 
       x += hitrostX;
@@ -423,5 +421,4 @@ canvasElem.addEventListener("mousemove", function(e)
 
   init();
   init_mouse();
-  //initbricks();
 }

@@ -90,7 +90,6 @@
     <script>
         const inpUsername = document.getElementById("inpUsername");
         const btnInsert = document.getElementById("playButton");
-        let score = 0;
         let vpis;
         function switchScreen(){
             document.getElementById("homeScreen").style.display = "none";
@@ -101,14 +100,22 @@
             console.log(username);
 
             if(username){
-                localStorage.setItem(username, score);
+                for(var i = 0; i<localStorage.length;i++){
+                    if(username == localStorage.key(i)){
+                        localStorage.setItem(username, localStorage.getItem(username));
+                        break;
+                    }
+                    else
+                        localStorage.setItem(username, 0);
+                }
+
                 console.log('vpisal si imena');
                 //location.reload();
             }
             else{
                 console.log('nisi vpisal imena');
                 vpis = 'guest';
-                localStorage.setItem('guest', score);
+                localStorage.setItem('guest', localStorage.getItem('guest'));
             }
 
             for(let i=0;i<localStorage.length;i++){
