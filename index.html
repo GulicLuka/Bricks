@@ -25,7 +25,7 @@
                 <div class="bottom">
                     <div class="block">
                         <button id="playButton" onclick="switchScreen()">Play</button>
-                        <button class="standardButton">Leaderboards</button>
+                        <button id="ldrButton" onclick="switchLeader()">Leaderboards</button>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
 
     <div id="inGameScreen">
         <div class="game">
-            <canvas id="myCanvas" width="700" height="700" ></canvas>
+            <canvas id="myCanvas" width="700" height="700" style="border:solid 2px white;" ></canvas>
         </div>
 
         <div class="score">
@@ -57,26 +57,58 @@
                 Leaderboards
                 sound on/off
             </div>
+            <div id="hp"></div>
+            <div id="cas"></div>
         </div>
+    </div>
+    <div id="pause">
+        <span class="hpause">Pause</span>
+        <div class="resume">
+            <button id="resumeBtn" onclick="resume()">Resume</button>
+            <button id="exitBtn" onclick="exit()">Exit</button>
+        </div>
+
+    </div>
+
+    <!--LEADERBOARDS SCREEN-->
+
+    <div id="leaderScreen">
+       <div class="ldrHeading">
+            <span>Leaderboards</span>
+            <button id="backToHome" onclick="switchHome()">Back</button>
+       </div>
+       <div id = "showLeaderboards">
+            <!--prikaz podatkov-->
+       </div>
+
     </div>
     
 
     <script src="js/script.js"></script>
+    <script src="js/leaderboards.js"></script>
     <script src="js/jQuery.js"></script>
     <script>
         const inpUsername = document.getElementById("inpUsername");
         const btnInsert = document.getElementById("playButton");
         let score = 0;
+        let vpis;
         function switchScreen(){
             document.getElementById("homeScreen").style.display = "none";
             document.getElementById("inGameScreen").style.display = "flex";
             drawIt();
             const username = inpUsername.value;
+            vpis = username;
             console.log(username);
 
             if(username){
                 localStorage.setItem(username, score);
-                location.reload();
+                console.log('vpisal si imena');
+                //location.reload();
+            }
+            else{
+                console.log('nisi vpisal imena');
+                vpis = 'guest';
+                localStorage.setItem('guest', score);
             }
 
             for(let i=0;i<localStorage.length;i++){
@@ -84,6 +116,25 @@
             const score = localStorage.getItem(username);
             }
 
+        }
+
+        function switchLeader(){
+           
+            document.getElementById("homeScreen").style.display = "none"; 
+            document.getElementById("leaderScreen").style.display = "flex";
+        }
+
+        function switchHome(){
+            document.getElementById("leaderScreen").style.display = "none"; 
+            document.getElementById("homeScreen").style.display = "flex"; 
+        }
+
+        function resume(){
+            pavza = false;
+        }
+
+        function exit(){
+            location.reload();
         }
     </script>
 </body>
