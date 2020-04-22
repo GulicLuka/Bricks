@@ -192,7 +192,9 @@ canvasElem.addEventListener("mousemove", function(e)
     ctx2 =$('#myCanvas')[0].getContext("2d");
     WIDTH = $("#myCanvas").width();
     HEIGHT = $("#myCanvas").height();
-    $("#tocke").html(NROWS);
+    $("#wave").html(NROWS);
+    $("#setUsername").html(vpis);
+    $("#setBest").html(localStorage.getItem(vpis));
     interval = setInterval(draw, 10);
     return interval;
   }
@@ -289,8 +291,17 @@ canvasElem.addEventListener("mousemove", function(e)
         location.reload();
       }
 
+      if(parseInt(localStorage.getItem(vpis)) < tocke){
+        $("#setBest").html('BEST: ' + tocke);
+      }
+      else{
+        $("#setBest").html('BEST: ' + localStorage.getItem(vpis));
+      }
+      $("#setUsername").html(vpis.toUpperCase());
+      
+
       tocke = NROWS;
-      $("#tocke").html(NROWS);
+      $("#wave").html('WAVE: ' + NROWS);
       clear();
       circle(x,y, r);
 

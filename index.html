@@ -33,7 +33,23 @@
         </div>
 
         <div class="howSection">
-            finish when you complete with whole project
+            <span>How to play</span>
+            <img src="res/BricksGametutorialv2.gif" width="80%" height="auto"  />
+            <div class="separated">
+                <span>POINT and CLICK LEFT MOUSE BUTTON to shoot the ball in that direction.</span>
+            </div>
+            <div class="separated">
+                <span>SPACE to switch pause ON / OFF.</span>
+            </div>
+            <div class="separated">
+                <span>Goal of the game is to survive as long as you can.</span>
+            </div>
+            <div class="separated">
+                <span>If brick touches the ground it's game over.</span>
+            </div>
+            <div class="separated">
+                <span>*Note: if you do not insert USERNAME you will play as GUEST.</span>
+            </div>
         </div>
     </div>
 
@@ -45,24 +61,23 @@
         </div>
 
         <div class="score">
-            <div id="best">
-                <span>"Username"</span>
-                <span>Best:"score"</span>
+            <div class="scoreContainer">
+                <div id="best">
+                    <span id = "setUsername"></span>
+                    <span id = "setBest"></span>
+                </div>
+                <div id="tocke">
+                    <span id = "wave">Wave:</span>
+                </div>
             </div>
-            <div id="tocke">
-                current score
-                ?time you played?
-                play again
-                exit
-                Leaderboards
-                sound on/off
+            <div class="scoreContainer2">
+                <button id="pauseBtn" onclick="pavzaNaClick()">Pause</button>
+                <button id="exitBtn2" onclick="exit()">Exit</button> 
             </div>
-            <div id="hp"></div>
-            <div id="cas"></div>
         </div>
     </div>
     <div id="pause">
-        <span class="hpause">Pause</span>
+        <span class="hpause">PAUSE</span>
         <div class="resume">
             <button id="resumeBtn" onclick="resume()">Resume</button>
             <button id="exitBtn" onclick="exit()">Exit</button>
@@ -138,6 +153,10 @@
 
         function resume(){
             pavza = false;
+        }
+
+        function pavzaNaClick(){
+            pavza = true;
         }
 
         function exit(){
